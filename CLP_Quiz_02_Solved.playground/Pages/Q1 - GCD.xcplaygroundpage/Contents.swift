@@ -1,6 +1,7 @@
-//: [Previous](@previous)
-
 import Foundation
+
+// NOTE: There are 4 pages in this playground.
+// There are a total of 4 questions, each on a separate page.
 
 // Use a GCD queue(s) (DispatchQueue) to execute functions a, b, and c in  the following order:
 
@@ -29,29 +30,6 @@ func slow(id: String) {
 func a() { slow(id: "a") }
 func b() { slow(id: "b") }
 func c() { slow(id: "c") }
-
-
-let queue = DispatchQueue(label: "my.queue", attributes: .concurrent)
-
-queue.async {
-    a()
-}
-
-queue.async(flags: .barrier) {
-    b()
-}
-
-queue.async {
-    a()
-}
-
-queue.async {
-    b()
-}
-
-queue.async(flags: .barrier) {
-    c()
-}
 
 // Example of a valid output:
 

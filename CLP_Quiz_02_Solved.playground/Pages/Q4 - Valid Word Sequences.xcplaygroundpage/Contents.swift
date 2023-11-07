@@ -40,89 +40,9 @@ import Foundation
 ///
 ///
 /////////////////////////////////////////////////////
-
-// Hint: You can convert a string into an array of characters like this:
-// let sentenceString = "abc"
-// var sentenceArray = Array(sentenceString)
-
-// Does the needle exist in the haystack at this index?
-func match(haystack: [Character], index: Int, needle: [Character]) -> Bool {
-    if index < 0 { return false }
-    if index + needle.count > haystack.count { return false }
-    var i = 0
-    while i < needle.count {
-        if haystack[i + index] != needle[i] { return false }
-        i += 1
-    }
-    return true
-}
-
+///
 func validWordSequences(sentence: String, words: [String]) -> [[String]] {
-    var result = [[String]]()
-    
-    var sentence = Array(sentence)
-    
-    var wordCountDict = [[Character]: Int]()
-    var wordArrays = [[Character]]()
-    for word in words {
-        let word = Array(word)
-        wordArrays.append(word)
-        wordCountDict[word, default: 0] += 1
-    }
-    
-    var matchDict = [Int: Set<[Character]>]()
-    for index in 0..<sentence.count {
-        for word in wordCountDict.keys {
-            if match(haystack: sentence,
-                     index: index,
-                     needle: word) {
-                matchDict[index, default: Set<[Character]>()].insert(word)
-            }
-        }
-    }
-    
-    var uniqueResults = Set<[[Character]]>()
-    
-    var sequence = [[Character]]()
-    func helper(index: Int) {
-        if index == sentence.count {
-            // this is a valid sequence
-            uniqueResults.insert(sequence)
-            return
-        }
-        
-        // try all words we can match with here
-        if let potentialMatches = matchDict[index] {
-            for potentialMatch in potentialMatches {
-                
-                // Have we already used it too many times?
-                
-                guard let count = wordCountDict[potentialMatch] else { continue }
-                guard count > 0 else { continue }
-                
-                //subtract out the match...
-                wordCountDict[potentialMatch] = count - 1
-                // add to temp...
-                sequence.append(potentialMatch)
-                
-                // recurse...
-                helper(index: index + potentialMatch.count)
-                
-                //add the match back...
-                wordCountDict[potentialMatch] = count
-                // remove from temp
-                sequence.removeLast()
-            }
-        }
-    }
-    
-    helper(index: 0)
-    
-    for _result in uniqueResults {
-        result.append(_result.map { String($0) })
-    }
-    
-    return result
+    []
 }
 
 var test_1_sentence = "harrypotter"

@@ -1,5 +1,3 @@
-//: [Previous](@previous)
-
 import Foundation
 
 // Use a structured concurrency (async/await) to execute functions a, b, and c in  the following order:
@@ -29,22 +27,6 @@ func slow(id: String) async {
 func a() async { await slow(id: "a") }
 func b() async { await slow(id: "b") }
 func c() async { await slow(id: "c") }
-
-Task {
-    await a()
-    await b()
-    
-    await withTaskGroup(of: Void.self) { group in
-        group.addTask {
-            await a()
-        }
-        group.addTask {
-            await b()
-        }
-        
-    }
-    await c()
-}
 
 // Example of a valid output:
 

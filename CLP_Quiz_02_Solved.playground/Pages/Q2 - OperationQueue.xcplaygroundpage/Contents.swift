@@ -1,5 +1,3 @@
-//: [Previous](@previous)
-
 import Foundation
 
 // Use OperationQueue to execute operations A, B, and C in the following order:
@@ -43,29 +41,6 @@ class C: Operation {
         slow(id: "c")
     }
 }
-
-let opa1 = A()
-let opb1 = B()
-
-opb1.addDependency(opa1)
-
-let opa2 = A()
-opa2.addDependency(opb1)
-
-let opb2 = B()
-opb2.addDependency(opb1)
-
-let opc1 = C()
-opc1.addDependency(opa2)
-opc1.addDependency(opb2)
-
-let queue = OperationQueue()
-queue.addOperation(opa1)
-queue.addOperation(opb1)
-queue.addOperation(opa2)
-queue.addOperation(opb2)
-queue.addOperation(opc1)
-
 
 // Example of a valid output:
 
